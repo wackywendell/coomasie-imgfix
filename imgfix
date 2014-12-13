@@ -1,0 +1,16 @@
+#!/bin/bash
+
+indir=~/Documents/coomassie-in
+outdir=~/Documents/coomassie-out
+origdir=~/Documents/coomassie-originals
+
+mkdir -p $indir
+mkdir -p $outdir
+mkdir -p $origdir
+
+opts='-channel blue -fx red*.34+green*.66 +channel -grayscale MS -contrast-stretch 0.01%x1%'
+
+for f in $(ls -1 $indir/*.jpg); do
+    bname="$(date '+%y%m%d-%H%M')-$(basename $f)"
+    convert $f $opts $outdir/$bname && mv $f $origdir/$bname
+done
